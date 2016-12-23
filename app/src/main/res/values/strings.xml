@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MyGames</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_math_game">MathGame</string>
+    <string name="title_activity_play_math_game">playMathGame</string>
+    <string name="scoreMathGame">highScoreMathGame</string>
+    <string name="scoreMemoryGame">highScoreMemoryGame</string>
+
+    <string name="title_activity_memory_game_menu">MemoryGameMenu</string>
+    <string name="title_activity_memory_game">MemoryGame</string>
+    <string name="title_activity_play_memory_game">playMemoryGame</string>
+</resources>
