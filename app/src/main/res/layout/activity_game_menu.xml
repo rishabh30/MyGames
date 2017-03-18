@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My GAME "
+        android:text="MENU "
         android:id="@+id/textView"
         android:textAppearance="?android:textAppearanceLarge"
         android:textSize="62dp"
@@ -16,9 +16,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/gameMenu"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/textView"

@@ -1,5 +1,7 @@
-package hell.mygames;
+package hell.mygames.memoryGame;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 
 import java.util.Random;
 import java.util.logging.LogRecord;
+
+import hell.mygames.R;
 
 
 public class playMemoryGame extends ActionBarActivity implements View.OnClickListener {
@@ -139,10 +143,24 @@ public class playMemoryGame extends ActionBarActivity implements View.OnClickLis
     }
 
 
-    public void quit(View view) {
-        Intent intent = new Intent(this, GameMenu.class);
-        startActivity(intent);
-        finish();
+    @Override
+    public void onBackPressed()
+    {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Want To Quit ?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        builder.show();
+
     }
 
     @Override
@@ -259,8 +277,7 @@ public class playMemoryGame extends ActionBarActivity implements View.OnClickLis
 
         if(restartButton.getText().equals("Start"))
         {
-
-                start();
+            start();
         }
         else
         {

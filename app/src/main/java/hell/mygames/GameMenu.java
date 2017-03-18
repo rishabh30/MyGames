@@ -3,6 +3,10 @@ package hell.mygames;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,12 +14,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import android.support.v7.widget.GridLayoutManager;
 
-public class GameMenu extends ActionBarActivity {
-
-    ListView gameMenu;
+public class GameMenu extends AppCompatActivity {
+    private static final String LOG_TAG = "GameMenu";
+    RecyclerView mRecyclerView;
+    CustomAdapter mAdapter;
     String [] gameList={"MathGame","MemoryGame"};
 
     @Override
@@ -23,17 +30,22 @@ public class GameMenu extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_menu);
 
-        gameMenu = (ListView)findViewById(R.id.gameMenu);
-        ListAdapter listAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,gameList);
-        gameMenu.setAdapter(listAdapter);
-        gameMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mRecyclerView = (RecyclerView)findViewById(R.id.gameMenu);
+        mAdapter = new CustomAdapter(gameList, new CustomAdapter.ListItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String gameSelected = String.valueOf(adapterView.getItemAtPosition(i));
+            public void onListItemClick(TextView v, CustomAdapter.ViewHolder vh) {
+                String gameSelected = String.valueOf(v.getText());
+                Log.d(LOG_TAG,""+gameSelected);
                 Toast.makeText(GameMenu.this, gameSelected, Toast.LENGTH_SHORT).show();
                 Class con = null;
+                String midPackage = "";
+                if(gameSelected.equals( gameList[0]) ){
+                    midPackage = "mathGame.";
+                }else{
+                    midPackage = "memoryGame.";
+                }
                 try {
-                    con= Class.forName("hell.mygames."+gameSelected);
+                    con= Class.forName("hell.mygames."+midPackage+gameSelected);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -41,28 +53,10 @@ public class GameMenu extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        mRecyclerView.scrollToPosition(0);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

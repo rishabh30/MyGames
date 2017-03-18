@@ -1,5 +1,7 @@
-package hell.mygames;
+package hell.mygames.mathGame;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -9,12 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.util.Random;
+
+import hell.mygames.R;
 
 
 public class playMathGame extends ActionBarActivity implements View.OnClickListener {
@@ -23,6 +28,7 @@ public class playMathGame extends ActionBarActivity implements View.OnClickListe
     TextView multiplicant2;
     TextView leveltextView;
     TextView scoreTextView;
+    Toast correctNess;
     Button option1;
     Button option2;
     Button option3;
@@ -51,27 +57,6 @@ public class playMathGame extends ActionBarActivity implements View.OnClickListe
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_play_math_game, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     private void makeQuestion() {
@@ -89,8 +74,9 @@ public class playMathGame extends ActionBarActivity implements View.OnClickListe
 
         int optionA = A*B ;
         correctAnswer =A*B;
-        int optionB = random.nextInt(A*B/2) + A*B/2 ;
-        int optionC = random.nextInt(A*B/2) + A*B +1 ;
+
+        int optionB = random.nextInt(2*A*B) ;
+        int optionC = random.nextInt(2*A*B) ;
 
         switch (random.nextInt(3)+1)
         {
@@ -119,6 +105,9 @@ public class playMathGame extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
+        if(correctNess!=null) {
+            correctNess.cancel();
+        }
         Button b = (Button) findViewById(view.getId());
         String selectedAnswer = (String) b.getText();
         int selectedInt = Integer.parseInt(selectedAnswer);
@@ -130,15 +119,15 @@ public class playMathGame extends ActionBarActivity implements View.OnClickListe
         {
             wrong();
         }
-
+        correctNess.show();
+        makeQuestion();
     }
 
     private void correct() {
         score += level ;
         level++;
 
-        Toast.makeText(this,"Correct Answer ",Toast.LENGTH_SHORT).show();
-        makeQuestion();
+        correctNess  = Toast.makeText(this,"Correct Answer ",Toast.LENGTH_SHORT);
     }
 
     private void wrong() {
@@ -149,20 +138,32 @@ public class playMathGame extends ActionBarActivity implements View.OnClickListe
             SharedPreferences.Editor edit = shared.edit();
             edit.putInt(getString(R.string.scoreMathGame), score);
             edit.apply();
-            Toast.makeText(this,"HIGHEST SCORE",Toast.LENGTH_SHORT).show();
+            correctNess  = Toast.makeText(this,"HIGHEST SCORE",Toast.LENGTH_SHORT);
         }else
         {
-            Toast.makeText(this,"Wrong Answer ",Toast.LENGTH_SHORT).show();
+            correctNess  =  Toast.makeText(this,"Wrong Answer ",Toast.LENGTH_SHORT);
         }
-        level=1;score=0;
 
-        makeQuestion();
+        level=1;score=0;
     }
 
+    @Override
+    public void onBackPressed()
+    {
 
-    public void quit(View view) {
-        Intent intent = new Intent(this, GameMenu.class);
-        startActivity(intent);
-        finish();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Want To Quit ?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+         builder.show();
+
     }
 }

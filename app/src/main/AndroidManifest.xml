@@ -19,23 +19,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MathGame"
+            android:name=".mathGame.MathGame"
             android:label="@string/title_activity_math_game"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".playMathGame"
+            android:name=".mathGame.playMathGame"
             android:label="@string/title_activity_play_math_game"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name=".MemoryGame"
+            android:name=".memoryGame.MemoryGame"
             android:label="@string/title_activity_memory_game"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".playMemoryGame"
+            android:name=".memoryGame.playMemoryGame"
             android:label="@string/title_activity_play_memory_game"
             android:screenOrientation="portrait" >
         </activity>
