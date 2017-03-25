@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -63,6 +64,8 @@ public class AnagramsActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Could not load dictionary", Toast.LENGTH_LONG);
             toast.show();
         }
+        new AlertDialog.Builder(this).setMessage("FIND AS MANY ANAGRAM U CAN !! ").setNeutralButton("OK", null).show();
+
         // Set up the EditText box to process the content of the box when the user hits 'enter'
         final EditText editText = (EditText) findViewById(R.id.editText);
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);

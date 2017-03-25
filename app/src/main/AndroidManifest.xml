@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="hell.mygames" >
-
+    package="hell.mygames">
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".GameMenu"
             android:label="@string/app_name"
@@ -21,33 +19,28 @@
         <activity
             android:name=".mathGame.MathGame"
             android:label="@string/title_activity_math_game"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".mathGame.playMathGame"
             android:label="@string/title_activity_play_math_game"
-            android:screenOrientation="portrait" >
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".memoryGame.MemoryGame"
             android:label="@string/title_activity_memory_game"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".memoryGame.playMemoryGame"
             android:label="@string/title_activity_play_memory_game"
-            android:screenOrientation="portrait" >
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".anagrams.AnagramsActivity"
-            android:label="@string/app_name"
+            android:label="Anagrams"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".scarnedice.DiceActivity"
+            android:label="Scarne's Dice"
+            android:screenOrientation="portrait">
         </activity>
-
     </application>
 
 </manifest>

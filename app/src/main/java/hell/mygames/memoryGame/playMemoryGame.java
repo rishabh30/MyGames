@@ -108,8 +108,6 @@ public class playMemoryGame extends ActionBarActivity implements View.OnClickLis
             }
         };
 
-
-
         leveltextView.setText("LEVEL : " + String.valueOf(level));
         scoreTextView.setText("SCORE : " + String.valueOf(score));
 
@@ -122,7 +120,6 @@ public class playMemoryGame extends ActionBarActivity implements View.OnClickLis
         option2.setOnClickListener(this);
         option3.setOnClickListener(this);
         option4.setOnClickListener(this);
-
     }
 
     private int getButtonWobble() {
@@ -168,7 +165,6 @@ public class playMemoryGame extends ActionBarActivity implements View.OnClickLis
 
         if(isResponding)
         {
-
             Button option = (Button)findViewById(view.getId());
             int choice = Integer.parseInt((String) option.getText());
             switch(choice)
