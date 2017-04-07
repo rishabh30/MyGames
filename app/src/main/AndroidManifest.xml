@@ -39,8 +39,11 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".scarnedice.DiceActivity"
             android:label="Scarne's Dice"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ghost.GhostActivity"
+            android:label="GHOST"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustPan"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

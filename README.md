@@ -10,11 +10,13 @@ Implemented various small games for fun .
   <li> MemoryGame </li>
   <li> Anagrams </li>
   <li> Scarne's Dice </li>
+  <li> Ghost </li>
 </ul>
 
 
-<h3>GAMES IMPLEMENTING </h3>
-    <li> Ghost </li>
+<h3>TO DO'S </h3>
+    <li>Reduce opening time for Anagram and Ghost </li>
+
 
  <strong>  Nnews Apk : [Download Link](https://github.com/rishabh30/MyGames/raw/master/MyGames.apk ) </strong>
  
