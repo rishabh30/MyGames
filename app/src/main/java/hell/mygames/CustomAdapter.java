@@ -29,7 +29,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public ViewHolder(View v) {
             super(v);
 
-            textView = (TextView) v.findViewById(R.id.tv_list_item);
+            textView = (TextView) v.findViewById(R.id.item);
             itemView.setOnClickListener(this);
         }
 

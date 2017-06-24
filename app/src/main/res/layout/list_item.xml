@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    >
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical"
+
+    app:cardBackgroundColor="@android:color/holo_blue_light"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp">
 
     <TextView
-        android:id="@+id/tv_list_item"
+        android:id="@+id/item"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:padding="5dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="22dp"
+        android:layout_gravity="center"
+        android:fontFamily="casual"
+        android:padding="15dp"
         android:text="Sample"
-        />
+        android:textSize="20dp"
+        android:transitionName="title" />
 
 </android.support.v7.widget.CardView>

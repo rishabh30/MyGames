@@ -1,11 +1,14 @@
 package hell.mygames;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +32,7 @@ public class GameMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_menu);
+        ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout)).setTitle("GAMES MENU");
 
         mRecyclerView = (RecyclerView)findViewById(R.id.gameMenu);
         mAdapter = new CustomAdapter(gameList, new CustomAdapter.ListItemClickListener() {
@@ -58,11 +62,25 @@ public class GameMenu extends AppCompatActivity {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                Intent intent = new Intent(GameMenu.this,con);
-                startActivity(intent);
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP && gameSelected.equals( gameList[0]) ) {
+                    Bundle bundle = ActivityOptions
+                            .makeSceneTransitionAnimation(
+                                    GameMenu.this, v, v.getTransitionName()
+                            ).toBundle();
+                    Intent intent = new Intent(GameMenu.this,con);
+                    startActivity(intent,bundle);
+                }else{
+                    Intent intent = new Intent(GameMenu.this,con);
+                    startActivity(intent);
+                }
+
+
             }
         });
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+       // mRecyclerView.setLayoutManager( new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+
+        mRecyclerView.setLayoutManager( new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , false));
         mRecyclerView.scrollToPosition(0);
         mRecyclerView.setAdapter(mAdapter);
     }

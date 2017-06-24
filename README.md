@@ -18,6 +18,6 @@ Implemented various small games for fun .
     <li>Reduce opening time for Anagram and Ghost </li>
 
 
- <strong>  Nnews Apk : [Download Link](https://github.com/rishabh30/MyGames/raw/master/MyGames.apk ) </strong>
+ <strong>  MYGames Apk : [Download Link](https://github.com/rishabh30/MyGames/raw/master/MyGames.apk ) </strong>
  
  <h3> Developed By:RISHABH JAIN </h3> 
