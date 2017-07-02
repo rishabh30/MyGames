@@ -1,5 +1,5 @@
 
-#MY GAMES
+MY GAMES
 ===================================================================================================
 
 Implemented various small games for fun .
@@ -15,9 +15,10 @@ Implemented various small games for fun .
 
 
 <h3>TO DO'S </h3>
-    <li>Reduce opening time for Anagram and Ghost </li>
+   <strike> <li>Reduce opening time for Anagram and Ghost </li> </strike>
 
+<br><br>
 
- <strong>  MYGames Apk : [Download Link](https://github.com/rishabh30/MyGames/raw/master/MyGames.apk ) </strong>
+ <strong>  MyGames Apk : [Download Link](https://github.com/rishabh30/MyGames/raw/master/MyGames.apk ) </strong>
  
  <h3> Developed By:RISHABH JAIN </h3> 

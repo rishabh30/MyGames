@@ -16,6 +16,7 @@
 package hell.mygames.ghost;
 
 import android.content.res.AssetManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +37,7 @@ import java.util.Random;
 import hell.mygames.R;
 
 
-public class GhostActivity extends AppCompatActivity {
+public class GhostActivity extends AppCompatActivity implements AsyncResponse {
     private static final String COMPUTER_TURN = "Computer's turn";
     private static final String USER_TURN = "Your turn";
     private GhostDictionary dictionary;
@@ -45,6 +46,8 @@ public class GhostActivity extends AppCompatActivity {
     Toast addToast;
 
     private ProgressBar spinner;
+
+
     /*
 Since we are not using a standard EditText field, we will need to do some keyboard handling.
 Proceed to override the GhostActivity.onKeyUp method. If the key that the user pressed is
@@ -53,25 +56,22 @@ the word fragment.Also check whether the current word fragment is a complete wor
 is, update the game status label to indicate so (this is not the right behavior for the game
  but will allow you to verify that your code is working for now).
 */
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ghost);
-        AssetManager assetManager = getAssets();
         Log.d("SPINNER"," GOING ON");
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.VISIBLE);
 
-        try{
-            InputStream inputStream = assetManager.open("words.txt");
-            dictionary = new FastDictionary(inputStream);
-        }catch (IOException e){
-            Toast toast  = Toast.makeText(this,"Couldn't Load Dictionary",Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        Log.d("SPINNER"," GOING OFF");
-        spinner.setVisibility(View.GONE);
-        onStart(null);
+
+
+
     }
 
     @Override
@@ -103,6 +103,9 @@ is, update the game status label to indicate so (this is not the right behavior 
      * @return true
      */
     public boolean onStart(View view) {
+
+
+
         userTurn = random.nextBoolean();
         TextView text = (TextView) findViewById(R.id.ghostText);
         Button btnChallenge = (Button)findViewById(R.id.challenge);
@@ -118,13 +121,30 @@ is, update the game status label to indicate so (this is not the right behavior 
         return true;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Button btnChallenge = (Button)findViewById(R.id.challenge);
+        btnChallenge.setEnabled(false);
+        Button restart = (Button)findViewById(R.id.restart);
+        restart.setEnabled(false);
+        new MyAsyncTask(this).execute(getAssets());
+
+    }
+
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
 
         @Override
         public void run() {
             TextView label = (TextView) findViewById(R.id.gameStatus);
-            label.setText("Computer Wins");
+            String temp = label.getText().toString();
+            if(temp.equals("Computer Challenge For Whole Word") ||
+                    temp.equals("Computer Challenge for no Longer Word") ) {
+                label.setText("Computer Wins");
+            }
         }
     };
 
@@ -209,4 +229,60 @@ is, update the game status label to indicate so (this is not the right behavior 
     public void restartGame(View view) {
         onStart(view);
     }
+
+    @Override
+    public void processFinish(FastDictionary output) {
+        dictionary = output ;
+
+
+        spinner.setVisibility(View.GONE);
+
+        Button btnChallenge = (Button)findViewById(R.id.challenge);
+        btnChallenge.setEnabled(true);
+        Button restart = (Button)findViewById(R.id.restart);
+        restart.setEnabled(true);
+
+        Log.d("SPINNER"," GOING OFF");
+        onStart(null);
+    }
+
+
+
+
+}
+
+interface AsyncResponse {
+    void processFinish(FastDictionary output);
+}
+
+class MyAsyncTask extends AsyncTask<AssetManager,Void,FastDictionary>{
+
+
+
+    @Override
+    protected FastDictionary doInBackground(AssetManager... params) {
+        FastDictionary dictionary2 =null;
+        AssetManager assetManager = params[0];
+        try{
+            InputStream inputStream = assetManager.open("words.txt");
+            dictionary2 = new FastDictionary(inputStream);
+        }catch (IOException e){
+            //Toast toast  = Toast.makeText(GhostActivity.this,"Couldn't Load Dictionary",Toast.LENGTH_SHORT);
+            //toast.show();
+        }
+        return dictionary2;
+    }
+
+    public AsyncResponse delegate = null;
+
+    public MyAsyncTask(AsyncResponse delegate){
+        this.delegate = delegate;
+    }
+
+    @Override
+    protected void onPostExecute(FastDictionary result) {
+        delegate.processFinish(result);
+    }
+
+
 }

@@ -68,12 +68,19 @@ public class TrieNode {
         if( children.containsKey( s.substring(0,1) ) ){
             TrieNode t = children.get(s.substring(0,1));
             if(s.length()==1){
-                if(children.size()==0)
+                if(children.size()==0) {
                     return s;
-                else
-                    return s +  t.getAnyWordStartingWith(s.substring(1));
+                }else {
+                    String temp = t.getAnyWordStartingWith(s.substring(1));
+                    if(temp!=null)
+                        return s + temp ;
+                    return s;
+                }
             }
-            return s.substring(0,1) + t.getAnyWordStartingWith(s.substring(1));
+            String temp = t.getAnyWordStartingWith(s.substring(1));
+            if(temp!=null)
+                return s.substring(0,1) + temp ;
+            return s.substring(0,1);
         }
         return null;
     }
@@ -97,12 +104,19 @@ public class TrieNode {
         if( children.containsKey( s.substring(0,1) ) ){
             TrieNode t = children.get(s.substring(0,1));
             if(s.length()==1){
-                if(children.size()==0)
+                if(children.size()==0) {
                     return s;
-                else
-                    return s +  t.getGoodWordStartingWith(s.substring(1));
+                }else{
+                    String temp = t.getGoodWordStartingWith(s.substring(1));
+                    if(temp!=null)
+                        return s + temp ;
+                    return s;
+                }
             }
-            return s.substring(0,1) + t.getGoodWordStartingWith(s.substring(1));
+            String temp = t.getGoodWordStartingWith(s.substring(1));
+            if(temp!=null)
+                return s.substring(0,1) + temp ;
+            return s.substring(0,1);
         }
         return null;
     }

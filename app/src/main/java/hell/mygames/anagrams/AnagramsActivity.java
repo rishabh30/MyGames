@@ -17,6 +17,7 @@ package hell.mygames.anagrams;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -25,13 +26,16 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +47,13 @@ import java.util.List;
 import hell.mygames.R;
 
 
-public class AnagramsActivity extends AppCompatActivity {
+public class AnagramsActivity extends AppCompatActivity implements AsyncResponse{
 
     public static final String START_MESSAGE = "Find as many wordList as possible that can be formed by adding one letter to <big>%s</big> (but that do not contain the substring %s).";
     private AnagramDictionary dictionary;
     private String currentWord;
     private List<String> anagrams;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +61,19 @@ public class AnagramsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anagrams);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.d("SPINNER"," GOING ON");
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.VISIBLE);
+
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setEnabled(false);
         AssetManager assetManager = getAssets();
-        try {
-            InputStream inputStream = assetManager.open("words.txt");
-            dictionary = new AnagramDictionary(new InputStreamReader(inputStream));
-        } catch (IOException e) {
-            Toast toast = Toast.makeText(this, "Could not load dictionary", Toast.LENGTH_LONG);
-            toast.show();
-        }
+
+        new MyAsyncTask(this).execute(assetManager);
+
+
         new AlertDialog.Builder(this).setMessage("FIND AS MANY ANAGRAM U CAN !! ").setNeutralButton("OK", null).show();
 
         // Set up the EditText box to process the content of the box when the user hits 'enter'
@@ -152,4 +162,61 @@ public class AnagramsActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
+    @Override
+    public void processFinish(AnagramDictionary output) {
+        dictionary = output ;
+
+
+        spinner.setVisibility(View.GONE);
+
+
+        Log.d("SPINNER"," GOING OFF");
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setEnabled(true);
+        //onStart(null);
+    }
+
+
+
+}
+
+
+
+
+interface AsyncResponse {
+    void processFinish(AnagramDictionary output);
+}
+
+class MyAsyncTask extends AsyncTask<AssetManager,Void,AnagramDictionary> {
+
+
+
+    @Override
+    protected AnagramDictionary doInBackground(AssetManager... params) {
+        AnagramDictionary dictionary2 =null;
+        AssetManager assetManager = params[0];
+        try{
+            InputStream inputStream = assetManager.open("words.txt");
+            dictionary2 = new AnagramDictionary(new InputStreamReader(inputStream));
+        }catch (IOException e){
+            //Toast toast  = Toast.makeText(GhostActivity.this,"Couldn't Load Dictionary",Toast.LENGTH_SHORT);
+            //toast.show();
+        }
+        return dictionary2;
+    }
+
+    public AsyncResponse delegate = null;
+
+    public MyAsyncTask(AsyncResponse delegate){
+        this.delegate = delegate;
+    }
+
+    @Override
+    protected void onPostExecute(AnagramDictionary result) {
+        delegate.processFinish(result);
+    }
+
+
 }
