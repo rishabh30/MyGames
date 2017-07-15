@@ -26,7 +26,7 @@ public class GameMenu extends AppCompatActivity {
     private static final String LOG_TAG = "GameMenu";
     RecyclerView mRecyclerView;
     CustomAdapter mAdapter;
-    String [] gameList={"MathGame","MemoryGame","Anagram","Scarnes Dice","Ghost"};
+    String [] gameList={"MathGame","MemoryGame","Anagram","Scarnes Dice","Ghost","Puzzle8"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,9 @@ public class GameMenu extends AppCompatActivity {
                 }else if (gameSelected.equals(gameList[4])){
                     midPackage = "ghost.";
                     gameSelected = "GhostActivity";
+                }else if (gameSelected.equals(gameList[5])){
+                    midPackage = "puzzle8.";
+                    gameSelected = "PuzzleActivity";
                 }
                 try {
                     con= Class.forName("hell.mygames."+midPackage+gameSelected);

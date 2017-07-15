@@ -8,9 +8,13 @@ Implemented various small games for fun .
 <ul>
   <li> MathGame </li>
   <li> MemoryGame </li>
+</ul>
+<h4>Computer Science with Android </h4>
+<ul>
   <li> Anagrams </li>
   <li> Scarne's Dice </li>
   <li> Ghost </li>
+  <li> Puzzle8</li>
 </ul>
 
 
