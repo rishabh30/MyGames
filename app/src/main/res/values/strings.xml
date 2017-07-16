@@ -17,4 +17,15 @@
     <string name="take_photo_button_label">Take photo</string>
     <string name="solve_button_label">Solve</string>
 
+
+    <string name="title_activity_solver">Solver</string>
+    <string-array name="word">
+        <item> 3 </item>
+        <item> 4  </item>
+        <item> 5  </item>
+        <item> 6  </item>
+        <item> 7  </item>
+    </string-array>
+
+
 </resources>

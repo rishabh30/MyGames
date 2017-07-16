@@ -15,6 +15,7 @@ Implemented various small games for fun .
   <li> Scarne's Dice </li>
   <li> Ghost </li>
   <li> Puzzle8</li>
+  <li> Word Ladder</li>
 </ul>
 
 

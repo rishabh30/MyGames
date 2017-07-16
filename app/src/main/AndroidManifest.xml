@@ -70,10 +70,20 @@
 
         <activity
             android:name=".puzzle8.PuzzleActivity"
-            android:label="@string/app_name"
+
+            android:label="Puzzle8"
             android:screenOrientation="portrait"
             >
         </activity>
+
+        <activity
+            android:name=".wordladder.WordSelectionActivity"
+
+            android:label="Word Ladder"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".wordladder.SolverActivity"></activity>
 
     </application>
 
